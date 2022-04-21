@@ -23,12 +23,13 @@ dependencies {
     implementation("com.google.protobuf:protobuf-java-util:$protobufVersion")
     implementation("com.google.protobuf:protobuf-kotlin:$protobufVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
+    implementation("com.github.ajalt.clikt:clikt:3.4.0")
     runtimeOnly("io.grpc:grpc-netty:$grpcVersion")
 }
 
 
 application {
-    mainClass.set("ServerKt")
+    mainClass.set("MainKt")
 }
 
 java {

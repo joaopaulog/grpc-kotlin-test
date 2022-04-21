@@ -3,5 +3,6 @@
 ## Build
 
 ```
-> ./gradlew run
+> ./gradlew build installDist
+> build/install/grpc-kotlin-test/bin/grpc-kotlin-test (args)
 ```

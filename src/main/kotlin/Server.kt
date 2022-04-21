@@ -2,25 +2,25 @@ import io.grpc.Server
 import io.grpc.ServerBuilder
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.runBlocking
 import test_bidi_stream.BidiStream
 import test_bidi_stream.RPCBidiStreamGrpcKt
 import test_bidi_stream.res
 
-fun main() = runBlocking {
-    println("Server start")
+class Server {
+    fun run(port: Int) {
+        println("Server start")
 
-    val service = BidiServer()
+        val service = BidiServer()
 
-    val port = 50051
-    val server: Server = ServerBuilder
-        .forPort(port)
-        .addService(service)
-        .build()
+        val server: Server = ServerBuilder
+            .forPort(port)
+            .addService(service)
+            .build()
 
-    Runtime.getRuntime().addShutdownHook(Thread { server.shutdown() })
-    server.start()
-    server.awaitTermination()
+        Runtime.getRuntime().addShutdownHook(Thread { server.shutdown() })
+        server.start()
+        server.awaitTermination()
+    }
 }
 
 class BidiServer : RPCBidiStreamGrpcKt.RPCBidiStreamCoroutineImplBase() {
