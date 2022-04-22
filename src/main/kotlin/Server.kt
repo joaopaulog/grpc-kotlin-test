@@ -11,15 +11,18 @@ import java.lang.Integer.max
 import java.lang.Integer.min
 
 class Server {
-    fun run(port: Int) {
+    fun run(port: Int, verbose: Boolean) {
         println("Server start")
 
-        val service = BidiServer()
-
-        val server: Server = ServerBuilder
+        var serverBuilder = ServerBuilder
             .forPort(port)
-            .intercept(ServerLogInterceptor())
-            .addService(service)
+
+        if (verbose) {
+            serverBuilder = serverBuilder.intercept(ServerLogInterceptor())
+        }
+
+        val server: Server = serverBuilder
+            .addService(BidiServer())
             .build()
 
         Runtime.getRuntime().addShutdownHook(Thread { server.shutdown() })
