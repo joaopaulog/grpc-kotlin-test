@@ -40,7 +40,7 @@ class BidiServer : RPCBidiStreamGrpcKt.RPCBidiStreamCoroutineImplBase() {
                 res {
                     id = it.id
                     r = it.s
-                        .substring(max(0, it.i) until min(it.i + it.c, it.s.length))
+                        .substring(max(0, it.i) until min(max(0, it.i) + max(1, it.c), it.s.length))
                         .repeat(max(1, it.n))
                 }
             }
