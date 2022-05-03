@@ -10,9 +10,9 @@ repositories {
     mavenCentral()
 }
 
-val grpcVersion = "1.45.1"
+val grpcVersion = "1.46.0"
 val grpcKotlinVersion = "1.2.1"
-val protobufVersion = "3.20.0"
+val protobufVersion = "3.20.1"
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.20")
@@ -23,7 +23,7 @@ dependencies {
     implementation("com.google.protobuf:protobuf-java-util:$protobufVersion")
     implementation("com.google.protobuf:protobuf-kotlin:$protobufVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
-    implementation("com.github.ajalt.clikt:clikt:3.4.0")
+    implementation("com.github.ajalt.clikt:clikt:3.4.2")
     runtimeOnly("io.grpc:grpc-netty:$grpcVersion")
 }
 

@@ -2,6 +2,7 @@ import grpc.ServerLogInterceptor
 import io.grpc.Server
 import io.grpc.ServerBuilder
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onCompletion
 import test_bidi_stream.BidiStream
@@ -44,6 +45,7 @@ class BidiServer : RPCBidiStreamGrpcKt.RPCBidiStreamCoroutineImplBase() {
                         .repeat(max(1, it.n))
                 }
             }
+            .buffer(1024)
             .onCompletion {
                 println("Closing a stream.")
             }
