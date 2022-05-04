@@ -10,8 +10,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.coroutines.CoroutineContext
 
@@ -90,12 +88,10 @@ object ImprovedServerCalls {
         val readinessSignal = Readiness { call.isReady }
         val requestProcessingJob = CoroutineScope(context).launch {
 
-            val mutex = Mutex()
-
             val headersSent = AtomicBoolean(false)
-            suspend fun sendHeaders() {
+            fun sendHeaders() {
                 if (headersSent.compareAndSet(false, true)) {
-                    mutex.withLock { call.sendHeaders(Metadata()) }
+                    call.sendHeaders(Metadata())
                 }
             }
 
@@ -105,7 +101,7 @@ object ImprovedServerCalls {
                     .collect {
                         sendHeaders()
                         readinessSignal.suspendUntilReady()
-                        mutex.withLock { call.sendMessage(it) }
+                        call.sendMessage(it)
                     }
             }.exceptionOrNull()
 
@@ -118,7 +114,7 @@ object ImprovedServerCalls {
             }
             val trailers = failure?.let { Status.trailersFromThrowable(it) } ?: Metadata()
 
-            mutex.withLock { call.close(closeStatus, trailers) }
+            call.close(closeStatus, trailers)
         }
 
         return StreamServerCallListener(
