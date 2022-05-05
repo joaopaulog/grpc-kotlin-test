@@ -48,6 +48,17 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
     kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
 }
 
+sourceSets {
+    main {
+        java {
+            srcDir("build/generated/source/proto/main/grpc")
+            srcDir("build/generated/source/proto/main/java")
+            srcDir("build/generated/source/proto/main/grpckt")
+            srcDir("build/generated/source/proto/main/kotlin")
+        }
+    }
+}
+
 protobuf {
     protoc {
         artifact = "com.google.protobuf:protoc:$protobufVersion"
