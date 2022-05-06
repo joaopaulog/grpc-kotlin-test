@@ -134,11 +134,11 @@ object ImprovedServerCalls {
         return flow {
             check(requestsStarted.compareAndSet(false, true)) { "requests flow can only be collected once" }
 
-            call.request(1)
+            call.request(10)
             try {
                 for (request in requestsChannel) {
                     emit(request)
-                    call.request(1)
+                    call.request(10)
                 }
             } catch (e: Exception) {
                 requestsChannel.cancel(CancellationException("Exception thrown while collecting requests", e))
