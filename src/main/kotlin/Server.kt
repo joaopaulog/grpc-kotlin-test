@@ -1,3 +1,4 @@
+import grpc.BufferedResponseInterceptor
 import grpc.ImprovedServerCalls
 import grpc.ServerLogInterceptor
 import io.grpc.Server
@@ -25,6 +26,8 @@ class Server {
         if (verbose) {
             serverBuilder = serverBuilder.intercept(ServerLogInterceptor())
         }
+
+        serverBuilder.intercept(BufferedResponseInterceptor())
 
         val server: Server = serverBuilder
             .addService(BidiServer())

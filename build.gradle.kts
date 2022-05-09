@@ -19,6 +19,7 @@ dependencies {
     implementation("io.grpc:grpc-protobuf:$grpcVersion")
     implementation("io.grpc:grpc-stub:$grpcVersion")
     implementation("io.grpc:grpc-api:$grpcVersion")
+    implementation("io.grpc:grpc-core:$grpcVersion")
     implementation("io.grpc:grpc-kotlin-stub:$grpcKotlinVersion")
     implementation("com.google.protobuf:protobuf-java-util:$protobufVersion")
     implementation("com.google.protobuf:protobuf-kotlin:$protobufVersion")
